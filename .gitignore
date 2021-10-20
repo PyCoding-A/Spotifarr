@@ -1,0 +1,5 @@
+/config/
+.config/
+!/config/credentials.json
+/config/credentials.json
+/config/*
