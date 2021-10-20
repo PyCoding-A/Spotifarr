@@ -1,7 +1,5 @@
 {
   "quiet": true,
-  "username": "",
-  "password": "",
   "format": "bestaudio/best",
   "cachedir": false,
   "noplaylist": true,

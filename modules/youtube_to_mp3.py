@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-from time import sleep
 
 import yt_dlp
 from youtubesearchpython import VideosSearch
 
 from modules.mp3_metadata import *
 from modules.sql_querry import *
+
 
 class music:
 
@@ -32,8 +32,6 @@ class music:
 
     def download_in(self, path_to_save):
         #print("[>] Downloading " + self.video_title + " ...")
-        self.option['username'] = self.credentials['ytb_username']
-        self.option['password'] = self.credentials['ytb_password']
         self.option['outtmpl'] = path_to_save + "/" + self.video_title + '.%(ext)s'
         try:
             os.remove(self.path_config + "/youtube.com_cookies.txt")
