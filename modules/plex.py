@@ -33,10 +33,10 @@ class plex_c:
         for section in plex.library.sections():
             music = plex.library.section(section.title)
             if section.type == "artist":
-
                 for mus in music.searchTracks():
                     location = mus.locations[0]
                     playlist_name = self.get_ps_name(location)
+                    print(f"Updating playlist {playlist_name}")
                     playlist = [playlist for playlist in plex.playlists() if playlist.title == playlist_name]
 
                     if not playlist:
