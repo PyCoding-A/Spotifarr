@@ -2,7 +2,7 @@
 import plexapi.audio
 from plexapi.server import PlexServer
 from modules.sql_querry import *
-from logger import *
+from modules.logger import *
 import json
 import os
 from time import sleep
