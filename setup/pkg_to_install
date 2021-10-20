@@ -1,0 +1,6 @@
+pkg install python
+pkg install py38-pip
+pkg install py38-sqlite3
+pip install --upgrade pip
+python3 -m pip install --upgrade pip setuptools wheel
+pip install -r /usr/local/spotifarr/setup/requirements.txt

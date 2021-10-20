@@ -1,0 +1,2 @@
+# Spotifarr
+ Spotifarr
