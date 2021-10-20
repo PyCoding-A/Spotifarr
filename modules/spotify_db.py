@@ -57,7 +57,7 @@ class spotify_c:
                     "albumartist": clean_up_text(track['artists'][0]['name']),
                     "date": str(track['album']['release_date']),
                     "tracknumber": str(track['track_number']),
-                    "url" : str(track['album']['images'][0]['url'])
+                    "url" : str(track['album']['images'][0]['url']) if len(track['album']['images']) > 0 else ""
                 }
                 self.db.insert_val(table_name=playlist_name, dic=track_info)
             else:
