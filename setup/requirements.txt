@@ -25,6 +25,7 @@ Pillow==8.4.0
 pipreqs==0.4.10
 PlexAPI==4.7.2
 progress==1.6
+pycryptodomex==3.11.0
 pydub==0.25.1
 pyparsing==2.4.7
 python-dotenv==0.19.1
@@ -36,7 +37,9 @@ spotipy==2.19.0
 toml==0.10.2
 tqdm==4.62.3
 urllib3==1.26.7
+websockets==10.0
 Werkzeug==2.0.2
 yarg==0.1.9
 youtube-dl==2021.6.6
 youtube-search-python==1.4.9
+yt-dlp==2021.10.10
