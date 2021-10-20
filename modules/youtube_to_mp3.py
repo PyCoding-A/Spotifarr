@@ -50,6 +50,7 @@ class music:
             with yt_dlp.YoutubeDL(self.option) as ydl:
                 sleep(1)
                 ydl.download([video_info['webpage_url']])
+                log(f"Downloading {self.video_title}")
             return True
         except:
             #print(f"I cannot download {self.video_title}")
@@ -57,6 +58,7 @@ class music:
 
 
 def build_track_location():
+    log("Building track locations into DB")
     list_playlist = db().fetch_all_list(table_name="playlists", what="*")
 
     for ps in list_playlist:
@@ -80,10 +82,11 @@ def build_track_location():
                         new_val=s,
                         condition_to_chk='"name"',
                         is_equalt_to=f'"{ps[0]}"')
-        log(f"[| Location for songs of {ps[0]} were built")
+    log(f"[| Location for songs of {ps[0]} were built")
 
 
 def download_missing():
+    log("Download missing")
     list_playlist = db().fetch_all_list(table_name="playlists", what="*")
     for ps in list_playlist:
         if ps[4] == 1:
@@ -104,6 +107,7 @@ def download_missing():
                             pass
                 print(".", end='')
             print("]", end='')
+    log("Download missing complete")
     build_track_location()
 
 

@@ -2,6 +2,7 @@
 import plexapi.audio
 from plexapi.server import PlexServer
 from modules.sql_querry import *
+from logger import *
 import json
 import os
 from time import sleep
@@ -27,7 +28,7 @@ class plex_c:
         plex_token = credentials['plex_token']
         plex = PlexServer(plex_base_url, plex_token)
         print("Connected to: " + str(plex.myPlexAccount()).replace('<MyPlexAccount:https://plex.tv/user:','').replace('>',''))
-
+        log("Connected to plex")
         plex.library.refresh()
 
         for section in plex.library.sections():

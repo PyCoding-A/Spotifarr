@@ -43,6 +43,7 @@ class spotify_c:
             return results
 
     def create_tracks(self, tracks, playlist_name):
+        log(f"Creating track DB for {playlist_name}")
         i = 0
         for i, item in enumerate(tracks['items']):
             track = item['track']
@@ -67,6 +68,7 @@ class spotify_c:
     def update_playlists(self):
         self.db.create_homepage()
         playlists = self.sp.user_playlists(self.sp_user)
+        log("Adding spotify playlists to the DB")
         print(f"\n Updating database with {str(len(playlists['items']))} playlists: [", end='')
         for playlist in playlists['items']:
             #with open(self.test, 'w') as j_file:
@@ -106,3 +108,4 @@ class spotify_c:
                 self.create_tracks(tracks, playlist_info["name"])
             print("U", end='')
         print("]", end='')
+        log("Spotify playlists and tracks imported")
