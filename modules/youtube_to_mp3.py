@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from time import sleep
 
-import youtube_dl
+import yt_dlp
 from youtubesearchpython import VideosSearch
 
 from modules.mp3_metadata import *
@@ -44,10 +44,10 @@ class music:
         videosSearch = VideosSearch(self.video_title, limit=1)
         try:
             video_url = videosSearch.result()['result'][0]['link']
-            video_info = youtube_dl.YoutubeDL(self.option).extract_info(
+            video_info = yt_dlp.YoutubeDL(self.option).extract_info(
                 url=video_url, download=False
             )
-            with youtube_dl.YoutubeDL(self.option) as ydl:
+            with yt_dlp.YoutubeDL(self.option) as ydl:
                 sleep(1)
                 ydl.download([video_info['webpage_url']])
             return True
