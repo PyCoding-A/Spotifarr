@@ -83,9 +83,9 @@ class spotify_c:
             results = self.sp.playlist(playlist['id'], fields="tracks,next")
             tracks = results['tracks']
             playlist_info = {
-                "name": clean_up_text(playlist['name']),
+                "name": clean_up_text(playlist['name']).encode("utf-8"),
                 "number_of_songs": playlist['tracks']['total'],
-                "location": location_folder(clean_up_text(playlist['name']), self.path_music),
+                "location": location_folder(clean_up_text(playlist['name'].encode("utf-8")), self.path_music),
                 "downloaded": 0,
                 "monitored": 1,
             }
