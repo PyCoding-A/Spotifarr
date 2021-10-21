@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-import plexapi.audio
-from plexapi.server import PlexServer
-from modules.sql_querry import *
-from modules.logger import *
 import json
 import os
-from time import sleep
+
+from plexapi.server import PlexServer
+
+from modules.logger import *
+from modules.sql_querry import *
+
 
 class plex_c:
     def __init__(self):
@@ -37,14 +38,13 @@ class plex_c:
                 for mus in music.searchTracks():
                     location = mus.locations[0]
                     playlist_name = self.get_ps_name(location)
-                    print(f"Updating playlist {playlist_name}")
                     playlist = [playlist for playlist in plex.playlists() if playlist.title == playlist_name]
 
                     if not playlist:
                         plex.createPlaylist(playlist_name, items=mus)
                     else:
                         plex.playlist(playlist_name).addItems(mus)
-
+        print('Updating playlists finished')
     def get_ps_name(self,location):
         last_slash = location.rfind('/')
         longeur = len(location) - last_slash
