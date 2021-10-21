@@ -62,21 +62,22 @@ def clean_up_text(title):
 
 
 def location_folder(playlist, path):
-    path = os.path.normpath(path.encode("utf-8"))
-    for (dir, subdirs, files) in os.walk(path):
-        if str(playlist) in subdirs:
-            return os.path.normpath(os.path.join(dir + os.path.dirname("/" + str(str(playlist)) + "/")))
+    path_t = os.path.normpath((path.encode("utf-8")).decode('utf-8', 'ignore'))
+    playlist_t = str((str(playlist).encode("utf-8")).decode('utf-8', 'ignore'))
+    for (dir, subdirs, files) in os.walk(path_t):
+        if playlist_t in subdirs:
+            return os.path.normpath(os.path.join(dir + os.path.dirname("/" + str(playlist_t) + "/")))
     else:
-        folder_playlist = os.path.normpath(os.path.join(path + os.path.dirname("/" + str(playlist) + "/")))
+        folder_playlist = os.path.normpath(os.path.join(path_t + os.path.dirname("/" + str(playlist_t) + "/")))
         os.mkdir(folder_playlist)
 
 
 def location_file(song, path):
 
-    t_path = os.path.normpath(path.encode("utf-8"))
-    file = song
+    path_t = os.path.normpath((path.encode("utf-8")).decode('utf-8', 'ignore'))
+    file = str((str(song).encode("utf-8")).decode('utf-8', 'ignore'))
 
-    for (dir, subdirs, files) in os.walk(t_path):
+    for (dir, subdirs, files) in os.walk(path_t):
         if file in files:
             return os.path.normpath(os.path.join(dir + "/" + str(file)))
     else:
