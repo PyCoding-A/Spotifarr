@@ -43,3 +43,4 @@ yarg==0.1.9
 youtube-dl==2021.6.6
 youtube-search-python==1.4.9
 yt-dlp==2021.10.10
+ytmusicapi==0.19.3
