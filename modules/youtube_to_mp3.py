@@ -47,7 +47,7 @@ class music:
             videosSearch = VideosSearch(self.video_title, limit=1)
 
             video_url = videosSearch.result()['result'][0]['link']
-        print(video_url)
+        print(f"\n[{self.video_title}] : {video_url}")
         try:
             video_info = yt_dlp.YoutubeDL(self.option).extract_info(
                 url=video_url, download=False
