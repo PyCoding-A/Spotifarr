@@ -6,7 +6,7 @@ from datetime import datetime
 
 @contextmanager
 def file(filename, method):
-    file = open(filename, method)
+    file = open(filename, method,encoding="utf-8")
     yield file
     file.close()
 

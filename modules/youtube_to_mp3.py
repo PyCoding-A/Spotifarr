@@ -5,9 +5,10 @@ from time import sleep
 import yt_dlp
 from youtubesearchpython import VideosSearch
 from ytmusicapi import YTMusic
-
+from tqdm import tqdm
 from modules.mp3_metadata import *
 from modules.sql_querry import *
+from time import sleep
 
 
 class music:
@@ -33,7 +34,7 @@ class music:
         with open_file(credentials_cfg, 'r') as f:
             self.credentials = json.load(f, cls=LazyDecoder)
 
-    def download_in(self, path_to_save):
+    def download_in(self, path_to_save, rank, playlist):
         # print("[>] Downloading " + self.video_title + " ...")
         self.option['outtmpl'] = path_to_save + "/" + self.video_title + '.%(ext)s'
         try:
@@ -49,7 +50,7 @@ class music:
         else:
             videosSearch = VideosSearch(self.video_title, limit=1)
             video_url = videosSearch.result()['result'][0]['link']
-        print(f"\n[{self.video_title}] : {video_url}")
+        print(f"\n{str(rank)} -[{playlist}][{self.video_title}] : {video_url}")
         try:
             with yt_dlp.YoutubeDL(self.option) as ydl:
                 sleep(1)
@@ -65,10 +66,9 @@ def build_track_location():
     log("Building track locations into DB")
     list_playlist = db().fetch_all_list(table_name="playlists", what="*")
 
-    for ps in list_playlist:
+    for ps in tqdm(list_playlist, desc=f"Updating location tracks...:"):
         db().create_playlist_table(ps[0])
         list_track = db().fetch_all_list(table_name=f'{ps[0]}', what="*")
-        print(f"\n {ps[0]} with {str(len(list_track))}: [", end='')
         s = 0
         for track in list_track:
             name = str(track[1]) + " - " + str(track[0]) + ".mp3"
@@ -80,14 +80,12 @@ def build_track_location():
                                     is_equalt_to=f'"{track[0]}","{track[1]}"')
                 if os.path.exists(location):
                     s = s + 1
-            print("=", end='')
-        print("]", end='')
         db().update_val(table_name="playlists", val_to_be_update='"downloaded"',
                         new_val=s,
                         condition_to_chk='"name"',
                         is_equalt_to=f'"{ps[0]}"')
-
         log(f"[| Location for songs of {ps[0]} were built")
+        sleep(0.25)
 
 
 def download_missing():
@@ -96,12 +94,9 @@ def download_missing():
     for ps in list_playlist:
         if ps[4] == 1:
             list_track = db().fetch_all_list(table_name=f'{ps[0]}', what="*")
-            print(f"\n {ps[0]} with {str(len(list_track))}: [", end='')
-
-            for track in list_track:
-
+            for i, track in enumerate(list_track):
                 if track[6] is None or track[6] == "None" or not os.path.exists(track[6]):
-                    if music(track[1] + " - " + track[0]).download_in(ps[2]):
+                    if music(track[1] + " - " + track[0]).download_in(ps[2],i,ps[0]):
                         music_path = os.path.normpath(ps[2] + "/" + track[1] + " - " + track[0] + ".mp3")
                         db().update_val(table_name=ps[0], val_to_be_update='"location"', new_val=f'"{music_path}"',
                                         condition_to_chk='"title","artist"',
@@ -110,10 +105,7 @@ def download_missing():
                             metadata(track, music_path).metadata_updata()
                         except:
                             pass
-                print(".", end='')
-            print("]", end='')
     log("Download missing complete")
-    build_track_location()
 
 
 def force_loop_metadata(search):

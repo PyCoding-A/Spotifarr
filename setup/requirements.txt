@@ -1,6 +1,7 @@
 anyio==3.3.4
 certifi==2021.10.8
 charset-normalizer==2.0.7
+colorama==0.4.4
 h11==0.12.0
 httpcore==0.13.7
 httpx==0.20.0
@@ -13,6 +14,7 @@ rfc3986==1.5.0
 six==1.16.0
 sniffio==1.2.0
 spotipy==2.19.0
+tqdm==4.62.3
 urllib3==1.26.7
 websockets==10.0
 youtube-search-python==1.4.9

@@ -7,7 +7,7 @@ import sys
 from modules.config_handler import *
 from modules.logger import *
 from modules.sql_querry import *
-
+from tqdm import tqdm
 
 class spotify_c:
     def __init__(self):
@@ -79,9 +79,7 @@ class spotify_c:
         self.db.create_homepage()
         playlists = self.sp.user_playlists(self.sp_user)
         log("Adding spotify playlists to the DB")
-        print(f"\n Updating database with {str(len(playlists['items']))} playlists: [", end='')
-        for playlist in playlists['items']:
-            print("U", end='')
+        for playlist in tqdm(playlists['items'],desc="Updating database..."):
             results = self.sp.playlist(playlist['id'], fields="tracks,next")
             tracks = results['tracks']
             playlist_info = {
@@ -114,6 +112,4 @@ class spotify_c:
             while tracks['next']:
                 tracks = self.sp.next(tracks)
                 self.create_tracks(tracks, playlist_info["name"])
-
-        print("]", end='')
         log("Spotify playlists and tracks imported")
