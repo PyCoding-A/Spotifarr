@@ -46,7 +46,7 @@ def check_cred():
         print('\nRefer to https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/')
         credentials['plex_token'] = input('Please insert your plex Token: ')
 
-    with open_file(credentials_cfg, 'r') as j_file:
+    with open_file(credentials_cfg, 'w') as j_file:
         json.dump(credentials , j_file)
     print("Credentials is up to date")
 
