@@ -62,7 +62,7 @@ def clean_up_text(title):
 
 
 def location_folder(playlist, path):
-    path_t = os.path.normpath((path.encode("utf-8")).decode('utf-8', 'ignore'))
+    path_t = os.path.normpath((str(path).encode("utf-8")).decode('utf-8', 'ignore'))
     playlist_t = str((str(playlist).encode("utf-8")).decode('utf-8', 'ignore'))
     for (dir, subdirs, files) in os.walk(path_t):
         if playlist_t in subdirs:
@@ -74,7 +74,7 @@ def location_folder(playlist, path):
 
 def location_file(song, path):
 
-    path_t = os.path.normpath((path.encode("utf-8")).decode('utf-8', 'ignore'))
+    path_t = os.path.normpath((str(path).encode("utf-8")).decode('utf-8', 'ignore'))
     file = str((str(song).encode("utf-8")).decode('utf-8', 'ignore'))
 
     for (dir, subdirs, files) in os.walk(path_t):
