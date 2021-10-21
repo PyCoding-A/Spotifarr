@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-from modules.spotify_db import *
-from modules.youtube_to_mp3 import *
-from modules.plex import *
 from modules.logger import *
+from modules.plex import *
+from modules.youtube_to_mp3 import *
 
 log("Process 1")
 print('\nUpdating the playlists')

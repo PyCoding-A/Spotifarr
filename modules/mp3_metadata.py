@@ -32,7 +32,7 @@ class metadata:
         audio['tracknumber'] = self.music_data[5]
         audio.save()
         albumartURL = self.music_data[7]
-        albumArtFilename = self.music_path.replace('.mp3','.jpg')
+        albumArtFilename = self.music_path.replace('.mp3', '.jpg')
         try:
             download_photo(albumartURL, albumArtFilename)
             audio = ID3(self.music_path)
@@ -61,7 +61,7 @@ class metadata:
                 audio['tracknumber'] = clean_up_text(track['track_number'])
                 audio.save()
                 albumartURL = track['album']['images'][0]['url']
-                albumArtFilename = self.music_path.replace('.mp3','.jpg')
+                albumArtFilename = self.music_path.replace('.mp3', '.jpg')
                 try:
                     download_photo(albumartURL, albumArtFilename)
                     audio = ID3(self.music_path)

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import json
 
 from plexapi.server import PlexServer
 
@@ -28,7 +27,8 @@ class plex_c:
         plex_base_url = credentials['plex_base_url']
         plex_token = credentials['plex_token']
         plex = PlexServer(plex_base_url, plex_token)
-        print("Connected to: " + str(plex.myPlexAccount()).replace('<MyPlexAccount:https://plex.tv/user:','').replace('>',''))
+        print("Connected to: " + str(plex.myPlexAccount()).replace('<MyPlexAccount:https://plex.tv/user:', '').replace(
+            '>', ''))
         log("Connected to plex")
         plex.library.refresh()
 
@@ -46,7 +46,8 @@ class plex_c:
                         plex.playlist(playlist_name).addItems(mus)
         print(f"Updating plex playlist done")
         log("Updaing plex playlist done")
-    def get_ps_name(self,location):
+
+    def get_ps_name(self, location):
         last_slash = location.rfind('/')
         longeur = len(location) - last_slash
         new = location[0:-longeur]

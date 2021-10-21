@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from time import sleep
+
 import yt_dlp
 from youtubesearchpython import VideosSearch
 from ytmusicapi import YTMusic
