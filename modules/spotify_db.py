@@ -3,7 +3,7 @@ import json
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-from time import sleep
+
 from modules.config_handler import *
 from modules.logger import *
 from modules.sql_querry import *
@@ -24,7 +24,7 @@ class spotify_c:
             f_to_open.close()
 
         with open_file(credentials_cfg, 'r') as j_file:
-            credentials = json.load(j_file)
+            credentials = json.load(j_file, cls=LazyDecoder)
 
 
 

@@ -26,10 +26,10 @@ class music:
             f_to_open.close()
 
         with open_file(option_cfg, 'r') as f:
-            self.option = json.load(f)
+            self.option = json.load(f, cls=LazyDecoder)
 
         with open_file(credentials_cfg, 'r') as f:
-            self.credentials = json.load(f)
+            self.credentials = json.load(f, cls=LazyDecoder)
 
     def download_in(self, path_to_save):
         # print("[>] Downloading " + self.video_title + " ...")

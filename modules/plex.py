@@ -3,6 +3,7 @@ import json
 
 from plexapi.server import PlexServer
 
+from modules.config_handler import *
 from modules.logger import *
 from modules.sql_querry import *
 
@@ -22,7 +23,7 @@ class plex_c:
             f_to_open.close()
 
         with open_file(credentials_cfg, 'r') as j_file:
-            credentials = json.load(j_file)
+            credentials = json.load(j_file, cls=LazyDecoder)
 
         plex_base_url = credentials['plex_base_url']
         plex_token = credentials['plex_token']
