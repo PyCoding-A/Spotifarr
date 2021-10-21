@@ -71,8 +71,12 @@ def location_folder(playlist, path):
 
 
 def location_file(song, path):
-    path = os.path.normpath(path)
+
+    t_path = os.path.normpath(path)
     file = song
-    for (dir, subdirs, files) in os.walk(path):
+
+    for (dir, subdirs, files) in os.walk(t_path):
         if file in files:
             return os.path.normpath(os.path.join(dir + "/" + str(file)))
+    else:
+        return None

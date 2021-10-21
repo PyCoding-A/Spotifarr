@@ -71,7 +71,7 @@ def build_track_location():
         print(f"\n {ps[0]} with {str(len(list_track))}: [", end='')
         s = 0
         for track in list_track:
-            name = (str(track[1]) + " - " + str(track[0]) + ".mp3")
+            name = str(track[1]) + " - " + str(track[0]) + ".mp3"
             location = location_file(name, ps[2])
             if location is not None:
                 if track[6] is None or track[6] == "None" or track[6] != location:

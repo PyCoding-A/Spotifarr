@@ -37,7 +37,7 @@ class plex_c:
             if section.type == "artist":
                 for mus in music.searchTracks():
                     location = mus.locations[0]
-                    playlist_name = self.get_ps_name(location)
+                    playlist_name = os.path.basename(os.path.dirname(location))
                     playlist = [playlist for playlist in plex.playlists() if playlist.title == playlist_name]
 
                     if not playlist:
@@ -46,11 +46,3 @@ class plex_c:
                         plex.playlist(playlist_name).addItems(mus)
         print(f"Updating plex playlist done")
         log("Updaing plex playlist done")
-
-    def get_ps_name(self, location):
-        last_slash = location.rfind('/')
-        longeur = len(location) - last_slash
-        new = location[0:-longeur]
-        last_slash = new.rfind('/') + 1
-        new = new[last_slash:]
-        return new
