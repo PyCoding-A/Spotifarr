@@ -52,8 +52,8 @@ def check_cred():
 
 
 def clean_up_text(title):
-    unauthorized_txt = ',.\/:*?"<>|'
-    title = str(title)
+    unauthorized_txt = ',.\/:*?"<>|"'
+    title = str(title).encode("utf-8")
     title = title.strip()
     for cr in unauthorized_txt:
         title = title.replace(cr, '')
