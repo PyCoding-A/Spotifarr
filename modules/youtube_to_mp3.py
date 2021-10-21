@@ -40,7 +40,7 @@ class music:
             pass
         self.option['cookiefile'] = self.path_config + "/youtube.com_cookies.txt"
         ytmusic = YTMusic()
-        search_results = ytmusic.search(self.video_title)[0]['videoId']
+        search_results = ytmusic.search(self.video_title, filter='songs')[0]['videoId']
         video_url = "https://www.youtube.com/watch?v=" + search_results
         if search_results is None or search_results == "":
             # videosSearch = VideosSearch(self.video_title + "duration < 10min", limit=2)
