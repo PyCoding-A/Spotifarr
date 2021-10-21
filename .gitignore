@@ -3,3 +3,5 @@
 !/config/credentials.json
 /config/credentials.json
 /config/*
+.idea/
+.idea/*
