@@ -75,6 +75,7 @@ def location_folder(playlist, path):
 def location_file(song, path):
 
     path_t = os.path.normpath((str(path).encode("utf-8")).decode('utf-8', 'ignore'))
+    print("I will save here: ", path_t)
     file = str((str(song).encode("utf-8")).decode('utf-8', 'ignore'))
 
     for (dir, subdirs, files) in os.walk(path_t):
