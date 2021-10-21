@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import os.path
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -26,21 +27,29 @@ class spotify_c:
         with open_file(credentials_cfg, 'r') as j_file:
             credentials = json.load(j_file, cls=LazyDecoder)
 
-
-
         auth_manager = SpotifyClientCredentials(client_id=credentials['client_id'],
                                                 client_secret=credentials['client_secret'])
         self.sp = spotipy.Spotify(auth_manager=auth_manager)
         self.sp_user = credentials['username']
-        self.path_music = credentials['path_music']
+
+        self.path_music = os.path.normpath(credentials['path_music'])
+
+        if self.path_music:
+            try:
+                os.mkdir(self.path_music)
+            except:
+                pass
         log("connected to spotify")
 
     def get_track(self, name):
         results = self.sp.search(name, limit=1)
-        if (len(results['tracks']['items']) == 0):
-            return None
+        if results:
+            if len(results['tracks']['items']) == 0:
+                return None
+            else:
+                return results
         else:
-            return results
+            return None
 
     def create_tracks(self, tracks, playlist_name):
         log(f"Creating track DB for {playlist_name}")
@@ -57,7 +66,8 @@ class spotify_c:
                     "albumartist": clean_up_text(track['artists'][0]['name']),
                     "date": str(track['album']['release_date']),
                     "tracknumber": str(track['track_number']),
-                    "url" : str(track['album']['images'][0]['url']) if len(track['album']['images']) > 0 else "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"
+                    "url": str(track['album']['images'][0]['url']) if len(track['album'][
+                                                                              'images']) > 0 else "https://upload.wikimedia.org/wikipedia/commons/3/3c/No-album-art.png"
                 }
                 self.db.insert_val(table_name=playlist_name, dic=track_info)
             else:
@@ -71,9 +81,6 @@ class spotify_c:
         log("Adding spotify playlists to the DB")
         print(f"\n Updating database with {str(len(playlists['items']))} playlists: [", end='')
         for playlist in playlists['items']:
-            #with open(self.test, 'w') as j_file:
-            #    json.dump(playlist,j_file)
-            #print()
             results = self.sp.playlist(playlist['id'], fields="tracks,next")
             tracks = results['tracks']
             playlist_info = {

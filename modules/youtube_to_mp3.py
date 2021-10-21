@@ -118,7 +118,6 @@ def download_missing():
     build_track_location()
 
 
-
 def force_loop_metadata(search):
     list_playlist = db().fetch_all_list(table_name="playlists", what="*")
     for ps in list_playlist:
@@ -135,5 +134,3 @@ def force_loop_metadata(search):
                         pass
             print("#", end='')
         print("]", end='')
-
-
