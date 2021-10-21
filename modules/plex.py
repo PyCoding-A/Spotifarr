@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import json
-import os
 
 from plexapi.server import PlexServer
 
@@ -44,7 +43,7 @@ class plex_c:
                         plex.createPlaylist(playlist_name, items=mus)
                     else:
                         plex.playlist(playlist_name).addItems(mus)
-        print('Updating playlists finished')
+        print('"Updating playlists finished"')
     def get_ps_name(self,location):
         last_slash = location.rfind('/')
         longeur = len(location) - last_slash
