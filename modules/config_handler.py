@@ -62,7 +62,7 @@ def clean_up_text(title):
 
 
 def location_folder(playlist, path):
-    path = os.path.normpath(path)
+    path = os.path.normpath(path.encode("utf-8"))
     for (dir, subdirs, files) in os.walk(path):
         if str(playlist) in subdirs:
             return os.path.normpath(os.path.join(dir + os.path.dirname("/" + str(str(playlist)) + "/")))
@@ -73,7 +73,7 @@ def location_folder(playlist, path):
 
 def location_file(song, path):
 
-    t_path = os.path.normpath(path)
+    t_path = os.path.normpath(path.encode("utf-8"))
     file = song
 
     for (dir, subdirs, files) in os.walk(t_path):
