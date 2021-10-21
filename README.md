@@ -6,7 +6,7 @@
 <li>The python script will connect to your Spotify and will retrieve your playlists using <a href="https://github.com/plamere/spotipy">spotipy</a>&nbsp;package</li>
 <li>The python script will create an SQL database with your playlist &amp; the list of tracks</li>
 <li>The python script will then search a youtube video based on the name &amp; the artist gathered from the metadata (it will search in YouTube music and if not found YouTube videos)</li>
-<li>The python script will download the video in .mp3 using <a href="https://github.com/ytdl-org/youtube-dl">youtube-dl</a> package</li>
+<li>The python script will download the video in .mp3 using <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> package</li>
 <li>The python script will update the metadata and prepare it for plex using <a href="https://github.com/quodlibet/mutagen">mutagen</a></li>
 <li>Finally, the python script will trigger an update and will create the same playlist that is in your Spotify in plex using <a href="https://github.com/pkkid/python-plexapi">PlexAPI</a></li>
 </ul>
