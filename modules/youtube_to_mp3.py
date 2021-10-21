@@ -35,20 +35,20 @@ class music:
 
     def download_in(self, path_to_save):
         # print("[>] Downloading " + self.video_title + " ...")
-        self.option['outtmpl'] = path_to_save + "/" + self.video_title + '.%(ext)s'
+        self.option['outtmpl'] = path_to_save + "/" + self.video_title.encode("utf-8") + '.%(ext)s'
         try:
             os.remove(self.path_config + "/youtube.com_cookies.txt")
         except:
             pass
         self.option['cookiefile'] = self.path_config + "/youtube.com_cookies.txt"
         ytmusic = YTMusic()
-        results = ytmusic.search(self.video_title, filter='songs')
+        results = ytmusic.search(self.video_title.encode("utf-8"), filter='songs')
         if results:
             search_results = results[0]['videoId']
             print(f"\n[{self.video_title}] : {search_results}")
             video_url = "https://www.youtube.com/watch?v=" + search_results
         else:
-            videosSearch = VideosSearch(self.video_title, limit=1)
+            videosSearch = VideosSearch(self.video_title.encode("utf-8"), limit=1)
             video_url = videosSearch.result()['result'][0]['link']
         print(f"\n[{self.video_title}] : {video_url}")
         try:
@@ -75,7 +75,7 @@ def build_track_location():
         print(f"\n {ps[0]} with {str(len(list_track))}: [", end='')
         s = 0
         for track in list_track:
-            name = str(track[1]) + " - " + str(track[0]) + ".mp3"
+            name = (str(track[1]) + " - " + str(track[0]) + ".mp3").encode("utf-8")
             location = location_file(name, ps[2])
             if location is not None:
                 if track[6] is None or track[6] == "None" or track[6] != location:

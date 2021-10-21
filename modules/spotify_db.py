@@ -59,10 +59,10 @@ class spotify_c:
             if not self.db.test_val(table_name=f'{playlist_name}', in_col="title", vals_in_col="title",
                                     equal_to=f'"{title}"'):
                 track_info = {
-                    "title": title,
-                    "artist": clean_up_text(track['artists'][0]['name']),
-                    "album": clean_up_text(track['album']['name']),
-                    "albumartist": clean_up_text(track['artists'][0]['name']),
+                    "title": title.encode("utf-8"),
+                    "artist": clean_up_text(track['artists'][0]['name']).encode("utf-8"),
+                    "album": clean_up_text(track['album']['name']).encode("utf-8"),
+                    "albumartist": clean_up_text(track['artists'][0]['name']).encode("utf-8"),
                     "date": str(track['album']['release_date']),
                     "tracknumber": str(track['track_number']),
                     "url": str(track['album']['images'][0]['url']) if len(track['album'][
