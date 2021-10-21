@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from modules.logger import *
+# -*- coding: utf-8 -*-
 from modules.plex import *
 from modules.youtube_to_mp3 import *
 from time import sleep

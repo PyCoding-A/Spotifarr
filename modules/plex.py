@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# -*- coding: utf-8 -*-
 from plexapi.server import PlexServer
 
 from modules.config_handler import *
