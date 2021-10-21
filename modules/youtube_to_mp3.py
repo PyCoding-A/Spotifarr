@@ -40,12 +40,13 @@ class music:
             pass
         self.option['cookiefile'] = self.path_config + "/youtube.com_cookies.txt"
         ytmusic = YTMusic()
-        search_results = ytmusic.search(self.video_title, filter='songs')[0]['videoId']
-        video_url = "https://www.youtube.com/watch?v=" + search_results
-        if search_results is None or search_results == "":
-            # videosSearch = VideosSearch(self.video_title + "duration < 10min", limit=2)
+        results = ytmusic.search(self.video_title, filter='songs')
+        if results:
+            search_results = results[0]['videoId']
+            print(f"\n[{self.video_title}] : {search_results}")
+            video_url = "https://www.youtube.com/watch?v=" + search_results
+        else:
             videosSearch = VideosSearch(self.video_title, limit=1)
-
             video_url = videosSearch.result()['result'][0]['link']
         print(f"\n[{self.video_title}] : {video_url}")
         try:
@@ -115,6 +116,7 @@ def download_missing():
             print("]", end='')
     log("Download missing complete")
     build_track_location()
+
 
 
 def force_loop_metadata(search):
