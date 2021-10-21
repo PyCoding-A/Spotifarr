@@ -3,6 +3,7 @@
   "format": "bestaudio/best",
   "cachedir": false,
   "noplaylist": true,
+  "nooverwrites": true,
   "cookiefile": "youtube.com_cookies.txt",
   "postprocessors": [
     {

@@ -91,7 +91,7 @@ def build_track_location():
                         condition_to_chk='"name"',
                         is_equalt_to=f'"{ps[0]}"')
 
-    log(f"[| Location for songs of {ps[0]} were built")
+        log(f"[| Location for songs of {ps[0]} were built")
 
 
 def download_missing():
