@@ -2,6 +2,7 @@
 
 import yt_dlp
 from youtubesearchpython import VideosSearch
+from ytmusicapi import YTMusic
 
 from modules.mp3_metadata import *
 from modules.sql_querry import *
@@ -31,17 +32,23 @@ class music:
             self.credentials = json.load(f)
 
     def download_in(self, path_to_save):
-        #print("[>] Downloading " + self.video_title + " ...")
+        # print("[>] Downloading " + self.video_title + " ...")
         self.option['outtmpl'] = path_to_save + "/" + self.video_title + '.%(ext)s'
         try:
             os.remove(self.path_config + "/youtube.com_cookies.txt")
         except:
             pass
         self.option['cookiefile'] = self.path_config + "/youtube.com_cookies.txt"
-        videosSearch = VideosSearch(self.video_title + "duration < 10min", limit=2)
-        videosSearch = VideosSearch(self.video_title, limit=1)
-        try:
+        ytmusic = YTMusic()
+        search_results = ytmusic.search(self.video_title)[0]['videoId']
+        video_url = "https://www.youtube.com/watch?v=" + search_results
+        if search_results is None or search_results == "":
+            # videosSearch = VideosSearch(self.video_title + "duration < 10min", limit=2)
+            videosSearch = VideosSearch(self.video_title, limit=1)
+
             video_url = videosSearch.result()['result'][0]['link']
+        print(video_url)
+        try:
             video_info = yt_dlp.YoutubeDL(self.option).extract_info(
                 url=video_url, download=False
             )
@@ -51,7 +58,7 @@ class music:
                 log(f"Downloading {self.video_title}")
             return True
         except:
-            #print(f"I cannot download {self.video_title}")
+            print(f"I cannot download {self.video_title}")
             return False
 
 
@@ -80,6 +87,7 @@ def build_track_location():
                         new_val=s,
                         condition_to_chk='"name"',
                         is_equalt_to=f'"{ps[0]}"')
+
     log(f"[| Location for songs of {ps[0]} were built")
 
 
@@ -107,7 +115,6 @@ def download_missing():
             print("]", end='')
     log("Download missing complete")
     build_track_location()
-
 
 
 def force_loop_metadata(search):
