@@ -61,6 +61,7 @@ def clean_up_text(title):
 
 
 def location_folder(playlist, path):
+    path = os.path.normpath(path)
     for (dir, subdirs, files) in os.walk(path):
         if str(playlist) in subdirs:
             return os.path.normpath(os.path.join(dir + os.path.dirname("/" + str(str(playlist)) + "/")))
@@ -70,6 +71,7 @@ def location_folder(playlist, path):
 
 
 def location_file(song, path):
+    path = os.path.normpath(path)
     file = song
     for (dir, subdirs, files) in os.walk(path):
         if file in files:

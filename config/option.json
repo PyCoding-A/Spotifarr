@@ -4,6 +4,7 @@
   "cachedir": false,
   "noplaylist": true,
   "nooverwrites": true,
+  "no_warnings" : true
   "cookiefile": "youtube.com_cookies.txt",
   "postprocessors": [
     {

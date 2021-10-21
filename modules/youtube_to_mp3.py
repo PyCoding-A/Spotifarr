@@ -45,19 +45,15 @@ class music:
         results = ytmusic.search(self.video_title, filter='songs')
         if results:
             search_results = results[0]['videoId']
-            print(f"\n[{self.video_title}] : {search_results}")
             video_url = "https://www.youtube.com/watch?v=" + search_results
         else:
             videosSearch = VideosSearch(self.video_title, limit=1)
             video_url = videosSearch.result()['result'][0]['link']
         print(f"\n[{self.video_title}] : {video_url}")
         try:
-            video_info = yt_dlp.YoutubeDL(self.option).extract_info(
-                url=video_url, download=False
-            )
             with yt_dlp.YoutubeDL(self.option) as ydl:
                 sleep(1)
-                ydl.download([video_info['webpage_url']])
+                ydl.download([video_url])
                 log(f"Downloading {self.video_title}")
             return True
         except:

@@ -3,7 +3,7 @@ import os.path
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-
+import sys
 from modules.config_handler import *
 from modules.logger import *
 from modules.sql_querry import *
@@ -31,13 +31,14 @@ class spotify_c:
         self.sp = spotipy.Spotify(auth_manager=auth_manager)
         self.sp_user = credentials['username']
 
+        while not os.path.isdir(os.path.normpath(credentials['path_music'])):
+            try:
+                os.mkdir(os.path.normpath(credentials['path_music']))
+            except:
+                credentials['path_music'] = input("Your music path directory is wrong, please add a valid one:")
+
         self.path_music = os.path.normpath(credentials['path_music'])
 
-        if self.path_music:
-            try:
-                os.mkdir(self.path_music)
-            except:
-                pass
         log("connected to spotify")
 
     def get_track(self, name):
@@ -80,6 +81,7 @@ class spotify_c:
         log("Adding spotify playlists to the DB")
         print(f"\n Updating database with {str(len(playlists['items']))} playlists: [", end='')
         for playlist in playlists['items']:
+            print("U", end='')
             results = self.sp.playlist(playlist['id'], fields="tracks,next")
             tracks = results['tracks']
             playlist_info = {
@@ -112,6 +114,6 @@ class spotify_c:
             while tracks['next']:
                 tracks = self.sp.next(tracks)
                 self.create_tracks(tracks, playlist_info["name"])
-            print("U", end='')
+
         print("]", end='')
         log("Spotify playlists and tracks imported")
